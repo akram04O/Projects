@@ -45,7 +45,6 @@ export default {
   methods: {
     async register() {
       try {
-        // Log the formData to verify it's correct before sending the request
         console.log('Form data being submitted:', this.formData);
 
         const response = await axios.post('http://localhost:3000/register', {
@@ -60,7 +59,7 @@ export default {
       }
     },
     submitForm() {
-      this.register(); // Directly call the register method
+      this.register(); 
     },
   },
   setup() {
@@ -85,19 +84,21 @@ export default {
 
 <style scoped>
 .register-container {
-  background-color: #e0e0e0;
-  width: 300px;
-  padding: 20px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  font-family: Arial, sans-serif;
+  justify-content: space-around;
+  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid #4d3d3d;
+  padding: 20px;
+  margin: auto;
+  border-radius: 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #e0e0e0;
 }
 
 h1 {
@@ -107,59 +108,62 @@ h1 {
 }
 
 .form-group {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 15px;
+  padding: 10px;
 }
 
 label {
   display: block;
-  font-size: 18px;
-  font-weight: bold;
-  color: #2d2525;
   margin-bottom: 5px;
+  font-weight: bold;
+  color: #230e07;;
+  font-size: 24px;
 }
 
-input[type="text"] {
-  width: auto;
+input {
   padding: 10px;
-  font-size: 14px;
-  border-radius: 8px;
-  border: 1px solid #4d3d3d;
+  border: 2px solid #231c1c;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #ccc;
   background-color: #4d3d3d;
-  color: white;
 }
 
 .checkbox-group {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  margin-bottom: 15px;
 }
 
 .checkbox-group label {
-  font-size: 12px;
-  color: #4d3d3d;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 14px;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  
 }
 
 .checkbox-group input[type="checkbox"] {
-  margin-right: 8px;
-  accent-color: #4d3d3d;
+  margin-right: 5px;
+  cursor: pointer;
+  border: 1px solid #000000;
+  border-radius: 4px;
 }
 
 button {
-  width: 100px;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
+  padding: 10px 20px;
   background-color: #4d3d3d;
+  color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #3b2e2e;
+  background-color: #333;
 }
 </style>
