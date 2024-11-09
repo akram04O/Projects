@@ -25,6 +25,7 @@ app.post('/register', async (req, res) =>{
         console.log(`Email: ${email}`);
         console.log(`Password: ${hashedPassword}`);
         res.status(201).send({message: "User registered successfully"})
+        console.table(users);
     } catch (error) {
         res.status(500).send({message: error.message})
     }
@@ -45,6 +46,7 @@ app.post('/login', async (req, res) =>{
         }
         console.log(`${username} logged in successfully`);
         res.status(200).send({message: "Login successful"})
+        console.table(users);
     } catch (error) {
         res.status(500).send({message: error.message})
     }
