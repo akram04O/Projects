@@ -2,11 +2,7 @@
   <div class="register-container">
     <h1>Register</h1>
     <form @submit.prevent="submitForm">
-      <div
-        v-for="(field, index) in formFields"
-        :key="index"
-        class="form-group"
-      >
+      <div v-for="(field, index) in formFields" :key="index" class="form-group">
         <label :for="field.name">{{ field.label }}</label>
         <input
           v-model="formData[field.name]"
@@ -32,6 +28,7 @@
       <!-- Submit Button -->
       <button type="submit">Submit</button>
     </form>
+    <p>{{ message }}</p>
   </div>
 </template>
 
@@ -42,29 +39,35 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      username: '',
-      password: '',
       message: ''
     };
   },
   methods: {
     async register() {
       try {
+        // Log the formData to verify it's correct before sending the request
+        console.log('Form data being submitted:', this.formData);
+
         const response = await axios.post('http://localhost:3000/register', {
-          username: this.username,
-          password: this.password
+          username: this.formData.username,
+          password: this.formData.password,
         });
-        this.message = response.data.message;
+        this.message = 'User registered successfully';
+        console.log('Response:', response.data);
       } catch (error) {
         this.message = 'Registration failed';
+        console.error('Error:', error);
       }
-    }
+    },
+    submitForm() {
+      this.register(); // Directly call the register method
+    },
   },
   setup() {
     const formFields = [
-      { name: 'username', label: 'USERNAME', type: 'text', placeholder: '' },
-      { name: 'email', label: 'USERNAME', type: 'text', placeholder: '' },
-      { name: 'password', label: 'USERNAME', type: 'text', placeholder: '' },
+      { name: 'username', label: 'Username', type: 'text', placeholder: 'Enter your username' },
+      { name: 'email', label: 'Email', type: 'email', placeholder: 'Enter your email' },
+      { name: 'password', label: 'Password', type: 'password', placeholder: 'Enter your password' },
     ];
 
     const formData = reactive({
@@ -75,16 +78,9 @@ export default {
       condition: false,
     });
 
-    const submitForm = () => {
-      console.log('Form submitted:', formData);
-      // Add submission logic here
-    };
-
-    return { formFields, formData, submitForm };
+    return { formFields, formData };
   },
 };
-  
-
 </script>
 
 <style scoped>
