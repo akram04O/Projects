@@ -33,9 +33,9 @@ app.post('/register', async (req, res) =>{
 
 app.post('/login', async (req, res) =>{
     try {
-        const {email, password} = req.body;
+        const {username, password} = req.body;
         // check if user not exists
-        const existingUser = users.find((data) => data.email === email);
+        const existingUser = users.find((data) => data.username === username);
         if(!existingUser){
             return res.status(404).send({message: "Invalid email or password"})
         }
