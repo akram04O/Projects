@@ -21,13 +21,13 @@
         />
       </div>
       <button type="submit">Login</button>
-      <p>{{ message }}</p> <!-- Show login status message -->
+      <p>{{ message }}</p> <!-- Display login status message -->
     </form>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import axios from 'axios';
 
 export default {
@@ -37,18 +37,18 @@ export default {
       password: '',
     });
 
-    const message = reactive({ text: '' });
+    const message = ref(''); 
 
     const login = async () => {
       try {
         const response = await axios.post('http://localhost:3000/login', {
           username: formData.username,
-          password: formData.password
+          password: formData.password,
         });
-        message.text = 'Login successful';
+        message.value = 'Login successful';
         console.log('Response:', response.data);
       } catch (error) {
-        message.text = 'Login failed';
+        message.value = 'Login failed';
         console.error('Error:', error);
       }
     };
@@ -59,7 +59,7 @@ export default {
     };
 
     return { formData, submitForm, message };
-  }
+  },
 };
 </script>
 
