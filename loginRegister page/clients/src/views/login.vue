@@ -8,7 +8,6 @@
           v-model="formData.username"
           type="text"
           name="username"
-          placeholder=""
           required
         />
       </div>
@@ -18,13 +17,11 @@
           v-model="formData.password"
           type="password"
           name="password"
-          placeholder=""
           required
         />
       </div>
-
-      <!-- Submit Button -->
       <button type="submit">Login</button>
+      <p>{{ message }}</p> <!-- Show login status message -->
     </form>
   </div>
 </template>
@@ -34,38 +31,34 @@ import { reactive } from 'vue';
 import axios from 'axios';
 
 export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-      message: ''
-    };
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await axios.post('http://localhost:3000/login', {
-          username: this.username,
-          password: this.password
-        });
-        this.message = 'Login successful';
-      } catch (error) {
-        this.message = 'Login failed';
-      }
-    }
-  },
   setup() {
     const formData = reactive({
       username: '',
       password: '',
     });
 
-    const submitForm = () => {
-      console.log('Login submitted:', formData);
-      // Add login submission logic here
+    const message = reactive({ text: '' });
+
+    const login = async () => {
+      try {
+        const response = await axios.post('http://localhost:3000/login', {
+          username: formData.username,
+          password: formData.password
+        });
+        message.text = 'Login successful';
+        console.log('Response:', response.data);
+      } catch (error) {
+        message.text = 'Login failed';
+        console.error('Error:', error);
+      }
     };
 
-    return { formData, submitForm };
+    const submitForm = () => {
+      console.log('Login submitted:', formData);
+      login();
+    };
+
+    return { formData, submitForm, message };
   }
 };
 </script>
@@ -128,5 +121,10 @@ button {
 
 button:hover {
   background-color: #3b2e2e;
+}
+
+p {
+  color: #333;
+  font-size: 14px;
 }
 </style>

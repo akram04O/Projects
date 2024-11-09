@@ -43,6 +43,7 @@ app.post('/login', async (req, res) =>{
         if(!isPasswordCorrect){
             return res.status(400).send({message: "Invalid email or password"})
         }
+        console.log(`${username} logged in successfully`);
         res.status(200).send({message: "Login successful"})
     } catch (error) {
         res.status(500).send({message: error.message})
